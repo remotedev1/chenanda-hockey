@@ -1,5 +1,3 @@
-// import { Footer } from "@/components/frontEnd/Footer";
-
 import Footer from "@/components/frontEnd/Footer";
 import Header from "@/components/frontEnd/Header";
 import ContactUs from "@/components/frontEnd/homepage/ContactUs";
@@ -9,7 +7,7 @@ export default async function RootLayout({ children }) {
     <div className={` font-sans  min-h-screen `}>
       <Header />
 
-      <div className="pt-10">{children}</div>
+      {children}
       <ContactUs />
 
       <Footer />

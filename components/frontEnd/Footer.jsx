@@ -14,13 +14,13 @@ export default function Footer() {
             </h2>
             <p className="mt-4 text-sm leading-relaxed">
               At Chenanda.Com, we bring together functionality and aesthetics to
-              provide homeowners with customised and efficient home
-              construction. Our team specialise in construction of houses, and
-              help you create a personalised home to suit your lifestyle.
+              provide  with customised and efficient 
+              . Our team specialise in  of , and
+              help you create a personalised  to suit your .
             </p>
           </div>
 
-          <div className="flex flex-row justify-end space-x-5">
+          <div className="flex flex-row lg:justify-end space-x-5">
             <div>
               <h3 className="text-lg font-semibold text-yellow-400 mb-4">
                 Home

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
@@ -22,14 +23,20 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative top-10 z-10 flex flex-col items-center justify-center h-full text-center text-white">
-        <h1 className="text-6xl lg:text-7xl font-bold">Chenanda Okka</h1>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">Chenanda Okka</h1>
 
-        <Link
-          href="/about-us"
-          className="cursor-pointer bg-yellow-400 rounded-full text-black text-base p-5 py-3 m-5 z-10"
+        <motion.div
+          initial={{ opacity: 0, y: 70 }}
+          animate={{ opacity: 1, y: 30 }}
+          transition={{ duration: 1, ease: "easeOut" }}
         >
-          About Us
-        </Link>
+          <Link
+            href="/about-us"
+            className="cursor-pointer bg-yellow-400 rounded-full text-black text-base p-5 py-3 m-5 z-10"
+          >
+            About Us
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
