@@ -1,8 +1,5 @@
-import UpcomingHockeyTournament from "@/components/frontEnd/homepage/aboutTournament";
-import ConsultationAd from "@/components/frontEnd/homepage/ConsultationAd";
-import ConsultationModal from "@/components/frontEnd/homepage/ConsultationModel";
+import UpcomingHockeyTournament from "@/components/frontEnd/about/aboutTournament";
 import Hero from "@/components/frontEnd/homepage/Hero";
-import WhyChoose from "@/components/frontEnd/WhyChoose";
 
 export default function Page() {
   return (

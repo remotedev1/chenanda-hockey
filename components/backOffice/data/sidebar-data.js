@@ -46,14 +46,14 @@ export const sidebarData = {
           icon: LayoutDashboard,
         },
         {
-          title: "Consultations",
-          url: "/dashboard/consultations",
-          badge: "3",
+          title: "Categories",
+          url: "/dashboard/categories",
+          // badge: "3",
           icon: PhoneIncoming,
         },
         {
-          title: "Solutions",
-          url: "/dashboard/solutions",
+          title: "News",
+          url: "/dashboard/news",
           icon: Megaphone,
         },
         {

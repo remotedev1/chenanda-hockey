@@ -175,55 +175,55 @@ export default function ProjectsTable() {
     setLoading(false);
   };
 
-  const onSubmit = async (values) => {
-    try {
-      const formData = new FormData();
-      Object.entries(values).forEach(([key, val]) => {
-        if (key === "imageGallery") {
-          val.forEach((file) => formData.append("imageGallery", file));
-        } else {
-          formData.append(
-            key,
-            typeof val === "string" ? val : JSON.stringify(val)
-          );
+const onSubmit = async (values) => {
+  try {
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, val]) => {
+      if (key === "image") {
+        // Support uploading a single file
+        if (val instanceof File) {
+          formData.append("image", val);
         }
-      });
-      formData.append(
-        "deletedFileIds",
-        JSON.stringify(values.deletedFileIds || [])
-      );
+      } else {
+        formData.append(key, typeof val === "string" ? val : JSON.stringify(val));
+      }
+    });
 
-      const url = editingId ? `/api/projects/${editingId}` : "/api/projects";
-      const method = editingId ? "PUT" : "POST";
-      const res = await fetch(url, { method, body: formData });
+    const url = editingId ? `/api/news/${editingId}` : "/api/news";
+    const method = editingId ? "PUT" : "POST";
 
-      if (!res.ok) throw new Error("Failed to save project");
-      setEditingId(null);
-      // form.reset(form.formState.defaultValues);
-      form.reset({
-        projectName: "",
-        projectType: "RESIDENTIAL",
-        location: "",
-        status: "ACTIVE",
-        overview: "",
-        objectives: [],
-        keyFeatures: [],
-        technologiesUsed: [],
-        imageGallery: [],
-        deletedFileIds: [],
-        youtubeLinks: [],
-        instagramLinks: [],
-      });
-      fetchProjects();
-      Swal.fire(
-        editingId ? "Updated!" : "Created!",
-        `Project ${editingId ? "updated" : "created"} successfully.`,
-        "success"
-      );
-    } catch (err) {
-      Swal.fire("Error", err.message, "error");
-    }
-  };
+    const res = await fetch(url, { method, body: formData });
+
+    if (!res.ok) throw new Error("Failed to save news");
+
+    setEditingId(null);
+
+    // Reset form to default values
+    form.reset({
+      title: "",
+      slug: "",
+      excerpt: "",
+      content: "",
+      image: "",
+      tags: [],
+      isPublished: false,
+      categoryId: "",
+      authorId: "",
+    });
+
+    fetchNews();
+
+    Swal.fire(
+      editingId ? "Updated!" : "Created!",
+      `News ${editingId ? "updated" : "created"} successfully.`,
+      "success"
+    );
+  } catch (err) {
+    Swal.fire("Error", err.message, "error");
+  }
+};
+
 
   const handleArchive = async (id) => {
     Swal.fire({

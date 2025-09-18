@@ -29,7 +29,7 @@ export const TestimonialSchema = z.object({
     .string()
     .url("Image must be a valid URL")
     .optional()
-    .or(z.literal("")), // allow empty string if you sometimes pass "" instead of undefined
+    .or(z.literal("")), 
   quote: z.string().min(1, "Quote is required"),
   isArchived: z.boolean().optional(),
 });
@@ -144,3 +144,39 @@ export const RegisterSchema = z
     message: "Passwords must match.",
     path: ["confirmPassword"], // shows the error under confirmPassword
   });
+
+
+export const NewsSchema = z.object({
+  title: z.string().min(3, "Title is required"),
+  slug: z.string().min(3, "Slug is required").optional(),
+  content: z.string().min(10, "Content must be at least 10 characters"),
+  images: z.array(
+    z.union([
+      // Case 1: Uploaded file
+      z.instanceof(File),
+
+      // Case 2: Saved image object
+      z.object({
+        url: z.string().url(),
+        fileId: z.string(),
+      }),
+    ])
+  ),
+  tags: z.array(z.string()).optional(),
+  categoryId: z.string().min(3, "Category is required"),
+  isPublished: z.boolean().default(false),
+  deletedFileIds: z.array(z.string()).optional(),
+});
+
+// ✅ Update Schema (all optional, but keeps same shape)
+export const NewsUpdateSchema = NewsSchema.partial();
+
+export const CategorySchema = z.object({
+  name: z.string().min(2, "Name is required"),
+  slug: z.string().min(2, "Slug is required"),
+});
+
+export const CategoryUpdateSchema = z.object({
+  name: z.string().optional(),
+  slug: z.string().optional(),
+});

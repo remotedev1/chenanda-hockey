@@ -32,46 +32,38 @@ export default function Header() {
         {pathname === "/" && (
           <div
             className={clsx(
-              "dark:text-white  hidden md:flex text-xs sm:text-sm md:text-base transition-all duration-500 bg-yellow-400 dark:bg-black",
+              "dark:text-white  hidden md:flex text-xs sm:text-sm md:text-base transition-all duration-500 bg-primary overflow-hidden ",
               isFixed
                 ? "opacity-0 -translate-y-6 pointer-events-none md:hidden"
                 : "opacity-100 translate-y-0 relative"
             )}
-          >
-            <div className="w-full flex flex-wrap justify-end items-center ">
+          > 
+            <div className="w-full flex flex-wrap justify-end items-center text-black">
               {/* Left: Social Icons */}
-              <div className="flex items-center border-l-2 border-white ">
-                <div className="flex items-center">
-                  <Link href="#" className="px-1 hover:text-blue-400">
+                <div className="flex items-center  space-x-3 pl-4 pr-4 mr-4">
+                  <Link href="#" className=" hover:text-blue-400">
                     <Globe className="w-4 h-4" />
                   </Link>
-                  <Link href="#" className="px-1 hover:text-blue-400">
+                  <Link href="#" className=" hover:text-blue-400">
                     <Linkedin className="w-4 h-4" />
                   </Link>
-                  <Link href="#" className="px-1 hover:text-blue-400">
+                  <Link href="#" className=" hover:text-blue-400">
                     <Facebook className="w-4 h-4" />
                   </Link>
-                  <Link href="#" className="px-1 hover:text-blue-400">
+                  <Link href="#" className=" hover:text-blue-400">
                     <Twitter className="w-4 h-4" />
                   </Link>
                 </div>
-              </div>
 
               {/* Middle: Email + Phone */}
-              <div className="flex items-center space-x-6 border-l-2 border-white pl-4 pr-4 mr-4">
+              <div className="flex items-center space-x-3 border-l-2 border-black pl-4 pr-4 mr-4">
                 <span className="hover:text-blue-400">
                   📧 klippe@qodeinteractive.com
                 </span>
                 <span className="hover:text-blue-400">📞 33 876 6284</span>
               </div>
 
-              {/* Right: Language + Help */}
-              <div className="flex items-center space-x-4 border-l-2 border-white pl-4">
-                <span>🌍 English</span>
-                <Link href="#" className="hover:text-yellow-400">
-                  ℹ️ How it works?
-                </Link>
-              </div>
+            
             </div>
           </div>
         )}
@@ -88,21 +80,25 @@ export default function Header() {
           )}
         >
           {/* Logo */}
+
           <motion.div
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex items-center space-x-2"
           >
-            <Link href="/" className="no-underline cursor-pointer">
-              <Image
-                src={!isFixed ? "/logo.png" : "/logo-red.png"}
-                alt="Logo"
-                width={125}
-                height={125}
-              />
-            </Link>
+            {isFixed && (
+              <Link href="/" className="no-underline cursor-pointer">
+                <Image
+                  src={isFixed && "/logo-red.png"}
+                  alt="Logo"
+                  width={125}
+                  height={125}
+                />
+              </Link>
+            )}
           </motion.div>
+          {/* Left side */}
 
           {/* Right side */}
           <div className="flex items-center space-x-4">

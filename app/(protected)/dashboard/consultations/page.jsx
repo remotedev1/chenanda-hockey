@@ -1,4 +1,4 @@
-import ConsultationsTable from "@/components/backOffice/features/Consultation-table";
+import ConsultationsTable from "@/components/backOffice/features/Category-table";
 
 const ConsultationDashboard = () => {
   return (
