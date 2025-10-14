@@ -83,7 +83,7 @@ export default function Hero() {
         >
           <Link
             href="/about-us"
-            className="bg-primary rounded-full text-black text-base px-8 py-3 hover:bg-yellow-300 transition-colors"
+            className="bg-yellow-500 rounded-full text-black text-base px-8 py-3 hover:bg-yellow-300 transition-colors"
           >
             About Us
           </Link>

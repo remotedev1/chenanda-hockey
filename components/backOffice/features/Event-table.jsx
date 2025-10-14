@@ -36,7 +36,7 @@ import { Loader } from "@/components/common/Loader";
 import { NewsSchema } from "@/schemas"; // your schema
 import { ImageUpload } from "./Image-upload";
 
-export default function NewsTable() {
+export default function EventTable() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
