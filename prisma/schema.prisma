@@ -24,7 +24,7 @@ model Users {
   passwordResetTokenExpires DateTime?
   verificationToken         String?
   verificationTokenExpires  DateTime?
-  News                      News[]
+  Event                      Event[]
 }
 
 enum UserRole {
@@ -55,9 +55,7 @@ model Event {
   updatedAt   DateTime       @updatedAt
   views       Int            @default(0)
 
-  categoryId String   @db.ObjectId
-  category   Category @relation(fields: [categoryId], references: [id])
-
+  category String  
   authorId String @db.ObjectId
   author   Users  @relation(fields: [authorId], references: [id])
 }
@@ -66,7 +64,6 @@ model Category {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   slug String @unique
-  news News[]
 }
 
 type ImageGallery {
