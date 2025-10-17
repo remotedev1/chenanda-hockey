@@ -1,6 +1,6 @@
+import ContactUs from "@/components/frontEnd/ContactUs";
 import Footer from "@/components/frontEnd/Footer";
 import Header from "@/components/frontEnd/Header";
-import ContactUs from "@/components/frontEnd/homepage/ContactUs";
 
 export default async function RootLayout({ children }) {
   return (

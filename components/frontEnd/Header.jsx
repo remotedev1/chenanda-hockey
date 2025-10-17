@@ -28,46 +28,6 @@ export default function Header() {
   return (
     <div>
       <header className={clsx("fixed w-full left-0 z-50  ")}>
-        {/* 🔹 Top Info Bar */}
-        {pathname === "/" && (
-          <div
-            className={clsx(
-              "dark:text-white  hidden md:flex text-xs sm:text-sm md:text-base transition-all duration-500 bg-primary overflow-hidden ",
-              isFixed
-                ? "opacity-0 -translate-y-6 pointer-events-none md:hidden"
-                : "opacity-100 translate-y-0 relative"
-            )}
-          > 
-            <div className="w-full flex flex-wrap justify-end items-center text-black">
-              {/* Left: Social Icons */}
-                <div className="flex items-center  space-x-3 pl-4 pr-4 mr-4">
-                  <Link href="#" className=" hover:text-blue-400">
-                    <Globe className="w-4 h-4" />
-                  </Link>
-                  <Link href="#" className=" hover:text-blue-400">
-                    <Linkedin className="w-4 h-4" />
-                  </Link>
-                  <Link href="#" className=" hover:text-blue-400">
-                    <Facebook className="w-4 h-4" />
-                  </Link>
-                  <Link href="#" className=" hover:text-blue-400">
-                    <Twitter className="w-4 h-4" />
-                  </Link>
-                </div>
-
-              {/* Middle: Email + Phone */}
-              <div className="flex items-center space-x-3 border-l-2 border-black pl-4 pr-4 mr-4">
-                <span className="hover:text-blue-400">
-                  📧 klippe@qodeinteractive.com
-                </span>
-                <span className="hover:text-blue-400">📞 33 876 6284</span>
-              </div>
-
-            
-            </div>
-          </div>
-        )}
-
         {/* 🔹 Main Header */}
         <div
           className={clsx(
@@ -75,7 +35,7 @@ export default function Header() {
             pathname === "/"
               ? isFixed
                 ? "bg-gradient-to-b from-white/95 to-white shadow-md " // red when fixed
-                : "bg-black/15 shadow-lg  border-white" // normal state
+                : "bg-black/40 shadow-lg  border-white" // normal state
               : "bg-white shadow-md " // default for other pages
           )}
         >

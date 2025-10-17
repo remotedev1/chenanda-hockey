@@ -3,6 +3,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { ChevronDown } from "lucide-react";
 
 export default function Hero() {
   const [isInView, setIsInView] = useState(false);
@@ -36,15 +37,18 @@ export default function Hero() {
   }, [isInView]);
 
   return (
-    <section ref={sectionRef} className="relative w-full h-screen overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative w-full h-screen overflow-hidden"
+    >
       {/* Background Image */}
-      <div 
+      <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
-        style={{ backgroundImage: 'url(/images/hero-poster.jpg)' }}
+        style={{ backgroundImage: "url(/images/hero-poster.jpg)" }}
       />
-      
+
       {/* Background Video */}
-      <video
+      {/* <video
         ref={videoRef}
         className="absolute top-0 left-0 w-full h-full object-cover"
         src="/videos/hero.mp4"
@@ -52,10 +56,11 @@ export default function Hero() {
         loop
         playsInline
         preload="auto"
-      />
+      /> */}
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/10"></div>
+      {/* Black Filter Overlay */}
+      <div className="absolute inset-0 bg-black/50"></div>
+      {/* ↑ adjust /60 to /40 or /80 depending on how dark you want it */}
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
@@ -66,9 +71,9 @@ export default function Hero() {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="mb-6"
         >
-          <Image 
-            src="/logo.png" 
-            alt="Chenanda Okka Logo" 
+          <Image
+            src="/logo.png"
+            alt="Chenanda Okka Logo"
             width={290}
             height={290}
             className="object-contain"
@@ -88,6 +93,13 @@ export default function Hero() {
             About Us
           </Link>
         </motion.div>
+      </div>
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center">
+        <p className="text-white text-sm mb-1 animate-pulse">Scroll down</p>
+        <ChevronDown
+          className="w-6 h-6 text-white animate-bounce"
+          strokeWidth={2}
+        />
       </div>
     </section>
   );
