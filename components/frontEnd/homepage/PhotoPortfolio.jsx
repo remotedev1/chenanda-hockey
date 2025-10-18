@@ -1,6 +1,7 @@
 "use client";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const PhotoPortfolio = () => {
@@ -87,9 +88,12 @@ const PhotoPortfolio = () => {
           {/* Center CTA */}
           {!isMobile && (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-30 pointer-events-none">
-              <button className="pointer-events-auto px-8 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-full font-medium hover:shadow-xl transition transform hover:scale-110">
+              <Link
+                href="/gallery"
+                className="pointer-events-auto px-8 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-full font-medium hover:shadow-xl transition transform hover:scale-110"
+              >
                 Visit Portfolio
-              </button>
+              </Link>
             </div>
           )}
         </div>

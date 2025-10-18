@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from 'react';
 
 const HockeyScrollAnimation = () => {
@@ -20,7 +21,7 @@ const HockeyScrollAnimation = () => {
   return (
     <div className="min-h-[500vh] bg-black relative">
       {/* Logo region with hockey stick and ball */}
-      <div className="fixed top-8 left-8 z-30 pointer-events-none">
+      <div className="fixed top-8 left-8 z-1 pointer-events-none">
         <div className="flex items-center space-x-3">
           {/* Hockey stick logo */}
           <div 
