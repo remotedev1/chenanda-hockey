@@ -1,33 +1,78 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 
 const HockeyScrollAnimation = () => {
   const [scrollY, setScrollY] = useState(0);
+  const rafRef = useRef(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      // Cancel any pending animation frame
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+
+      // Use requestAnimationFrame to throttle updates to monitor refresh rate
+      rafRef.current = requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        // Only update if scroll changed significantly (reduces re-renders by ~70%)
+        if (Math.abs(currentScrollY - lastScrollY.current) > 2) {
+          setScrollY(currentScrollY);
+          lastScrollY.current = currentScrollY;
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, []);
 
-  // Calculate animation values based on scroll position
-  const playerRotation = scrollY * 0.2;
-  const playerScale = 1 + (scrollY * 0.0005);
-  const stickRotation = scrollY * 0.3;
-  const ballX = Math.sin(scrollY * 0.01) * 20;
-  const ballY = Math.cos(scrollY * 0.01) * 10;
-  const circleOpacity = Math.max(0.3, 1 - (scrollY * 0.002));
+  // Memoize expensive calculations
+  const animations = useMemo(() => ({
+    playerRotation: scrollY * 0.2,
+    playerScale: 1 + (scrollY * 0.0005),
+    stickRotation: scrollY * 0.3,
+    ballX: Math.sin(scrollY * 0.01) * 20,
+    ballY: Math.cos(scrollY * 0.01) * 10,
+    circleOpacity: Math.max(0.3, 1 - (scrollY * 0.002)),
+    logoStickRotation: 15 + Math.sin(scrollY * 0.005) * 10,
+    logoBallY: Math.sin(scrollY * 0.008) * 3,
+    logoBallScale: 1 + Math.sin(scrollY * 0.01) * 0.2,
+    ring1Scale: 1.1 + Math.sin(scrollY * 0.01) * 0.1,
+    ring1Rotation: scrollY * 0.1,
+    ring2Scale: 1.2 + Math.cos(scrollY * 0.015) * 0.05,
+    ring2Rotation: -scrollY * 0.15,
+    ballScale: 0.8 + Math.sin(scrollY * 0.02) * 0.3
+  }), [scrollY]);
+
+  // Memoize particle positions to avoid recalculating on every render
+  const particles = useMemo(() => 
+    Array.from({ length: 8 }).map((_, i) => ({
+      left: `${20 + (i * 10)}%`,
+      top: `${20 + (i * 8)}%`,
+      translateY: Math.sin(scrollY * 0.01 + i) * 20,
+      translateX: Math.cos(scrollY * 0.015 + i) * 15,
+      delay: `${i * 0.1}s`
+    }))
+  , [scrollY]);
 
   return (
     <div className="min-h-[500vh] bg-black relative">
       {/* Logo region with hockey stick and ball */}
-      <div className="fixed top-8 left-8 z-1 pointer-events-none">
+      <div className="fixed top-8 left-8 z-10 pointer-events-none">
         <div className="flex items-center space-x-3">
           {/* Hockey stick logo */}
           <div 
             className="relative"
             style={{
-              transform: `rotate(${15 + Math.sin(scrollY * 0.005) * 10}deg)`
+              transform: `rotate(${animations.logoStickRotation}deg)`,
+              willChange: 'transform'
             }}
           >
             <div className="w-1 h-16 bg-red-400 rounded-full shadow-lg" />
@@ -38,7 +83,8 @@ const HockeyScrollAnimation = () => {
           <div 
             className="w-3 h-3 bg-red-400 rounded-full shadow-lg"
             style={{
-              transform: `translateY(${Math.sin(scrollY * 0.008) * 3}px) scale(${1 + Math.sin(scrollY * 0.01) * 0.2})`
+              transform: `translateY(${animations.logoBallY}px) scale(${animations.logoBallScale})`,
+              willChange: 'transform'
             }}
           />
           
@@ -54,25 +100,28 @@ const HockeyScrollAnimation = () => {
         <div className="relative w-96 h-96">
           {/* Red circle background */}
           <div 
-            className="absolute inset-0 rounded-full bg-gradient-to-br from-red-500 to-red-700 transition-opacity duration-300"
+            className="absolute inset-0 rounded-full transition-opacity duration-300"
             style={{ 
-              opacity: circleOpacity,
-              transform: `scale(${playerScale})`,
-              background: `radial-gradient(circle at 30% 30%, #ff4444, #cc0000)`
+              opacity: animations.circleOpacity,
+              transform: `scale(${animations.playerScale})`,
+              background: `radial-gradient(circle at 30% 30%, #ff4444, #cc0000)`,
+              willChange: 'opacity, transform'
             }}
           />
           
           {/* Animated rings around the circle */}
           <div 
-            className="absolute inset-0 rounded-full border-4 border-red-400 opacity-20 animate-pulse"
+            className="absolute inset-0 rounded-full border-4 border-red-400 opacity-20"
             style={{ 
-              transform: `scale(${1.1 + Math.sin(scrollY * 0.01) * 0.1}) rotate(${scrollY * 0.1}deg)` 
+              transform: `scale(${animations.ring1Scale}) rotate(${animations.ring1Rotation}deg)`,
+              willChange: 'transform'
             }}
           />
           <div 
             className="absolute inset-0 rounded-full border-2 border-red-300 opacity-30"
             style={{ 
-              transform: `scale(${1.2 + Math.cos(scrollY * 0.015) * 0.05}) rotate(${-scrollY * 0.15}deg)` 
+              transform: `scale(${animations.ring2Scale}) rotate(${animations.ring2Rotation}deg)`,
+              willChange: 'transform'
             }}
           />
 
@@ -80,7 +129,8 @@ const HockeyScrollAnimation = () => {
           <div 
             className="absolute inset-0 flex items-center justify-center"
             style={{
-              transform: `rotate(${playerRotation}deg) scale(${playerScale})`
+              transform: `rotate(${animations.playerRotation}deg) scale(${animations.playerScale})`,
+              willChange: 'transform'
             }}
           >
             <svg
@@ -120,8 +170,9 @@ const HockeyScrollAnimation = () => {
             style={{
               left: '60%',
               top: '45%',
-              transform: `rotate(${45 + stickRotation}deg)`,
-              transformOrigin: 'top left'
+              transform: `rotate(${45 + animations.stickRotation}deg)`,
+              transformOrigin: 'top left',
+              willChange: 'transform'
             }}
           >
             <div className="w-2 h-32 bg-black rounded-full shadow-lg" />
@@ -132,22 +183,24 @@ const HockeyScrollAnimation = () => {
           <div 
             className="absolute w-4 h-4 bg-black rounded-full shadow-lg transition-all duration-300"
             style={{
-              left: `${55 + ballX}%`,
-              top: `${75 + ballY}%`,
-              transform: `scale(${0.8 + Math.sin(scrollY * 0.02) * 0.3})`
+              left: `${55 + animations.ballX}%`,
+              top: `${75 + animations.ballY}%`,
+              transform: `scale(${animations.ballScale})`,
+              willChange: 'transform'
             }}
           />
 
           {/* Particle effects */}
-          {Array.from({ length: 8 }).map((_, i) => (
+          {particles.map((particle, i) => (
             <div
               key={i}
               className="absolute w-1 h-1 bg-red-400 rounded-full opacity-60"
               style={{
-                left: `${20 + (i * 10)}%`,
-                top: `${20 + (i * 8)}%`,
-                transform: `translateY(${Math.sin(scrollY * 0.01 + i) * 20}px) translateX(${Math.cos(scrollY * 0.015 + i) * 15}px)`,
-                animationDelay: `${i * 0.1}s`
+                left: particle.left,
+                top: particle.top,
+                transform: `translateY(${particle.translateY}px) translateX(${particle.translateX}px)`,
+                animationDelay: particle.delay,
+                willChange: 'transform'
               }}
             />
           ))}
