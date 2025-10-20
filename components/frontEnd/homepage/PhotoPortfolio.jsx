@@ -103,9 +103,12 @@ const PhotoPortfolio = () => {
       <div className="relative z-10 mt-12 h-36 overflow-hidden">
         {isMobile && (
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-30 pointer-events-none">
-            <button className="pointer-events-auto px-8 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-full font-medium hover:shadow-xl transition transform hover:scale-110">
+            <Link
+              href="/gallery"
+              className="pointer-events-auto px-8 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-full font-medium hover:shadow-xl transition transform hover:scale-110"
+            >
               Visit Portfolio
-            </button>
+            </Link>
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900 opacity-60"></div>

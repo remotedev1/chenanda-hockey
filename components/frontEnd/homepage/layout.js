@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from "react";
 
 const HockeyScrollAnimation = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -24,9 +24,9 @@ const HockeyScrollAnimation = () => {
       });
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
       }
@@ -34,33 +34,38 @@ const HockeyScrollAnimation = () => {
   }, []);
 
   // Memoize expensive calculations
-  const animations = useMemo(() => ({
-    playerRotation: scrollY * 0.2,
-    playerScale: 1 + (scrollY * 0.0005),
-    stickRotation: scrollY * 0.3,
-    ballX: Math.sin(scrollY * 0.01) * 20,
-    ballY: Math.cos(scrollY * 0.01) * 10,
-    circleOpacity: Math.max(0.3, 1 - (scrollY * 0.002)),
-    logoStickRotation: 15 + Math.sin(scrollY * 0.005) * 10,
-    logoBallY: Math.sin(scrollY * 0.008) * 3,
-    logoBallScale: 1 + Math.sin(scrollY * 0.01) * 0.2,
-    ring1Scale: 1.1 + Math.sin(scrollY * 0.01) * 0.1,
-    ring1Rotation: scrollY * 0.1,
-    ring2Scale: 1.2 + Math.cos(scrollY * 0.015) * 0.05,
-    ring2Rotation: -scrollY * 0.15,
-    ballScale: 0.8 + Math.sin(scrollY * 0.02) * 0.3
-  }), [scrollY]);
+  const animations = useMemo(
+    () => ({
+      playerRotation: scrollY * 0.2,
+      playerScale: 1 + scrollY * 0.0005,
+      stickRotation: scrollY * 0.3,
+      ballX: Math.sin(scrollY * 0.01) * 20,
+      ballY: Math.cos(scrollY * 0.01) * 10,
+      circleOpacity: Math.max(0.3, 1 - scrollY * 0.002),
+      logoStickRotation: 15 + Math.sin(scrollY * 0.005) * 10,
+      logoBallY: Math.sin(scrollY * 0.008) * 3,
+      logoBallScale: 1 + Math.sin(scrollY * 0.01) * 0.2,
+      ring1Scale: 1.1 + Math.sin(scrollY * 0.01) * 0.1,
+      ring1Rotation: scrollY * 0.1,
+      ring2Scale: 1.2 + Math.cos(scrollY * 0.015) * 0.05,
+      ring2Rotation: -scrollY * 0.15,
+      ballScale: 0.8 + Math.sin(scrollY * 0.02) * 0.3,
+    }),
+    [scrollY]
+  );
 
   // Memoize particle positions to avoid recalculating on every render
-  const particles = useMemo(() => 
-    Array.from({ length: 8 }).map((_, i) => ({
-      left: `${20 + (i * 10)}%`,
-      top: `${20 + (i * 8)}%`,
-      translateY: Math.sin(scrollY * 0.01 + i) * 20,
-      translateX: Math.cos(scrollY * 0.015 + i) * 15,
-      delay: `${i * 0.1}s`
-    }))
-  , [scrollY]);
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 8 }).map((_, i) => ({
+        left: `${20 + i * 10}%`,
+        top: `${20 + i * 8}%`,
+        translateY: Math.sin(scrollY * 0.01 + i) * 20,
+        translateX: Math.cos(scrollY * 0.015 + i) * 15,
+        delay: `${i * 0.1}s`,
+      })),
+    [scrollY]
+  );
 
   return (
     <div className="min-h-[500vh] bg-black relative">
@@ -68,26 +73,26 @@ const HockeyScrollAnimation = () => {
       <div className="fixed top-8 left-8 z-10 pointer-events-none">
         <div className="flex items-center space-x-3">
           {/* Hockey stick logo */}
-          <div 
+          <div
             className="relative"
             style={{
               transform: `rotate(${animations.logoStickRotation}deg)`,
-              willChange: 'transform'
+              willChange: "transform",
             }}
           >
             <div className="w-1 h-16 bg-red-400 rounded-full shadow-lg" />
             <div className="w-4 h-3 bg-red-400 rounded-lg -mt-1 -ml-1.5" />
           </div>
-          
+
           {/* Hockey ball logo */}
-          <div 
+          <div
             className="w-3 h-3 bg-red-400 rounded-full shadow-lg"
             style={{
               transform: `translateY(${animations.logoBallY}px) scale(${animations.logoBallScale})`,
-              willChange: 'transform'
+              willChange: "transform",
             }}
           />
-          
+
           {/* Logo text */}
           <div className="text-red-400 font-bold text-lg tracking-wider">
             HOCKEY
@@ -99,38 +104,38 @@ const HockeyScrollAnimation = () => {
       <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
         <div className="relative w-96 h-96">
           {/* Red circle background */}
-          <div 
+          <div
             className="absolute inset-0 rounded-full transition-opacity duration-300"
-            style={{ 
+            style={{
               opacity: animations.circleOpacity,
               transform: `scale(${animations.playerScale})`,
               background: `radial-gradient(circle at 30% 30%, #ff4444, #cc0000)`,
-              willChange: 'opacity, transform'
+              willChange: "opacity, transform",
             }}
           />
-          
+
           {/* Animated rings around the circle */}
-          <div 
+          <div
             className="absolute inset-0 rounded-full border-4 border-red-400 opacity-20"
-            style={{ 
+            style={{
               transform: `scale(${animations.ring1Scale}) rotate(${animations.ring1Rotation}deg)`,
-              willChange: 'transform'
+              willChange: "transform",
             }}
           />
-          <div 
+          <div
             className="absolute inset-0 rounded-full border-2 border-red-300 opacity-30"
-            style={{ 
+            style={{
               transform: `scale(${animations.ring2Scale}) rotate(${animations.ring2Rotation}deg)`,
-              willChange: 'transform'
+              willChange: "transform",
             }}
           />
 
           {/* Hockey player silhouette */}
-          <div 
+          <div
             className="absolute inset-0 flex items-center justify-center"
             style={{
               transform: `rotate(${animations.playerRotation}deg) scale(${animations.playerScale})`,
-              willChange: 'transform'
+              willChange: "transform",
             }}
           >
             <svg
@@ -145,18 +150,42 @@ const HockeyScrollAnimation = () => {
                 <circle cx="0" cy="-80" r="25" />
                 {/* Hair/ponytail */}
                 <path d="M -20,-85 Q -35,-95 -25,-105 Q -15,-100 -10,-95" />
-                
+
                 {/* Torso */}
                 <ellipse cx="0" cy="-30" rx="35" ry="45" />
-                
+
                 {/* Arms */}
-                <ellipse cx="-25" cy="-40" rx="15" ry="35" transform="rotate(-20)" />
-                <ellipse cx="25" cy="-25" rx="15" ry="40" transform="rotate(25)" />
-                
+                <ellipse
+                  cx="-25"
+                  cy="-40"
+                  rx="15"
+                  ry="35"
+                  transform="rotate(-20)"
+                />
+                <ellipse
+                  cx="25"
+                  cy="-25"
+                  rx="15"
+                  ry="40"
+                  transform="rotate(25)"
+                />
+
                 {/* Legs */}
-                <ellipse cx="-15" cy="30" rx="18" ry="50" transform="rotate(-15)" />
-                <ellipse cx="15" cy="35" rx="18" ry="50" transform="rotate(20)" />
-                
+                <ellipse
+                  cx="-15"
+                  cy="30"
+                  rx="18"
+                  ry="50"
+                  transform="rotate(-15)"
+                />
+                <ellipse
+                  cx="15"
+                  cy="35"
+                  rx="18"
+                  ry="50"
+                  transform="rotate(20)"
+                />
+
                 {/* Hands/gloves */}
                 <circle cx="-35" cy="-15" r="12" />
                 <circle cx="40" cy="0" r="12" />
@@ -165,14 +194,14 @@ const HockeyScrollAnimation = () => {
           </div>
 
           {/* Hockey stick */}
-          <div 
+          <div
             className="absolute"
             style={{
-              left: '60%',
-              top: '45%',
+              left: "60%",
+              top: "45%",
               transform: `rotate(${45 + animations.stickRotation}deg)`,
-              transformOrigin: 'top left',
-              willChange: 'transform'
+              transformOrigin: "top left",
+              willChange: "transform",
             }}
           >
             <div className="w-2 h-32 bg-black rounded-full shadow-lg" />
@@ -180,13 +209,13 @@ const HockeyScrollAnimation = () => {
           </div>
 
           {/* Hockey ball */}
-          <div 
+          <div
             className="absolute w-4 h-4 bg-black rounded-full shadow-lg transition-all duration-300"
             style={{
               left: `${55 + animations.ballX}%`,
               top: `${75 + animations.ballY}%`,
               transform: `scale(${animations.ballScale})`,
-              willChange: 'transform'
+              willChange: "transform",
             }}
           />
 
@@ -200,7 +229,7 @@ const HockeyScrollAnimation = () => {
                 top: particle.top,
                 transform: `translateY(${particle.translateY}px) translateX(${particle.translateX}px)`,
                 animationDelay: particle.delay,
-                willChange: 'transform'
+                willChange: "transform",
               }}
             />
           ))}
@@ -211,10 +240,10 @@ const HockeyScrollAnimation = () => {
       <div className="relative z-10 space-y-screen">
         <section className="h-screen flex items-center justify-start pl-16">
           <div className="text-white max-w-md">
-            <h1 className="text-5xl font-bold mb-6 text-red-400">Field Hockey</h1>
-            <p className="text-xl leading-relaxed">
-              Experience the dynamic world of field hockey with smooth scroll animations that bring the sport to life.
-            </p>
+            <h1 className="text-5xl font-bold mb-6 text-red-400">
+              Field Hockey
+            </h1>
+            <p className="text-xl leading-relaxed">lorem</p>
           </div>
         </section>
 
@@ -222,34 +251,36 @@ const HockeyScrollAnimation = () => {
           <div className="text-white max-w-md text-right">
             <h2 className="text-4xl font-bold mb-6 text-red-400">In Motion</h2>
             <p className="text-xl leading-relaxed">
-              Watch as the player moves and rotates with your scroll, creating an immersive visual experience.
+              lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+              nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
             </p>
           </div>
         </section>
 
         <section className="h-screen flex items-center justify-center">
           <div className="text-white max-w-md text-center">
-            <h2 className="text-4xl font-bold mb-6 text-red-400">Interactive Design</h2>
-            <p className="text-xl leading-relaxed">
-              Scroll-based animations create engaging user experiences that respond to user interaction.
-            </p>
+            <h2 className="text-4xl font-bold mb-6 text-red-400">
+              Interactive{" "}
+            </h2>
+            <p className="text-xl leading-relaxed">lorem</p>
           </div>
         </section>
 
         <section className="h-screen flex items-center justify-start pl-16">
           <div className="text-white max-w-md">
-            <h2 className="text-4xl font-bold mb-6 text-red-400">Visual Effects</h2>
-            <p className="text-xl leading-relaxed">
-              Dynamic particles, rotating elements, and scaling effects combine to create a captivating animation experience.
-            </p>
+            <h2 className="text-4xl font-bold mb-6 text-red-400">Visual </h2>
+            <p className="text-xl leading-relaxed">lorem</p>
           </div>
         </section>
 
         <section className="h-screen flex items-center justify-center">
           <div className="text-white max-w-md text-center">
-            <h2 className="text-4xl font-bold mb-6 text-red-400">Endless Possibilities</h2>
+            <h2 className="text-4xl font-bold mb-6 text-red-400">
+              Endless Possibilities
+            </h2>
             <p className="text-xl leading-relaxed">
-              This scroll-driven approach opens up infinite creative possibilities for interactive storytelling and user engagement.
+              lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+              nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.
             </p>
           </div>
         </section>
