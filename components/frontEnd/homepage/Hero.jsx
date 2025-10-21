@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import {useIsMobile} from "@/hooks/use-mobile";
 
 export default function Hero() {
   const [isInView, setIsInView] = useState(false);
   const videoRef = useRef(null);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef(null); 
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -60,7 +62,6 @@ export default function Hero() {
 
       {/* Black Filter Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
-      {/* ↑ adjust /60 to /40 or /80 depending on how dark you want it */}
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
@@ -74,8 +75,8 @@ export default function Hero() {
           <Image
             src="/logo.png"
             alt="Chenanda Okka Logo"
-            width={290}
-            height={290}
+            width={isMobile ? 230 : 300}
+            height={isMobile ? 80 : 120}
             className="object-contain"
           />
         </motion.div>
@@ -94,7 +95,7 @@ export default function Hero() {
           </Link>
         </motion.div>
       </div>
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center">
+      <div className="absolute bottom-14 left-1/2 -translate-x-1/2 flex flex-col items-center">
         <p className="text-white text-sm mb-1 animate-pulse">Scroll down</p>
         <ChevronDown
           className="w-6 h-6 text-white animate-bounce"

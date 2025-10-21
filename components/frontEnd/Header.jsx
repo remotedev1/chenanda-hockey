@@ -2,8 +2,21 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Menu, User, Globe, Linkedin, Facebook, Twitter } from "lucide-react";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import {
+  Menu,
+  User,
+  Globe,
+  Linkedin,
+  Facebook,
+  Twitter,
+  X,
+} from "lucide-react";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetClose,
+} from "@/components/ui/sheet";
 import clsx from "clsx";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -63,7 +76,7 @@ export default function Header() {
           {/* Right side */}
           <div className="flex items-center space-x-4">
             {/* Mobile Menu */}
-            <Sheet open={open} onOpenChange={setOpen}>
+            <Sheet open={open} onOpenChange={setOpen}   >
               <SheetTrigger asChild>
                 <button className="p-2 rounded">
                   <Menu
@@ -74,8 +87,9 @@ export default function Header() {
                   />
                 </button>
               </SheetTrigger>
+
               <SheetContent side="top" className="w-full h-full">
-                <nav className="space-y-6 flex flex-col items-center justify-center h-full text-lg font-medium">
+                <nav className="space-y-6 flex flex-col items-center justify-center h-full text-lg font-medium bg-black text-white">
                   <Link
                     href="#"
                     className="hover:text-yellow-400"

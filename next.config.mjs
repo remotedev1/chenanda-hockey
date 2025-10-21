@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  //todo 
+  allowedDevOrigins: ["http://localhost:3000"],
   reactStrictMode: false,
   images: {
     remotePatterns: [

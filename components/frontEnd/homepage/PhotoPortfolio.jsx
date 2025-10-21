@@ -3,6 +3,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const PhotoPortfolio = () => {
   const [hoveredPhoto, setHoveredPhoto] = useState(null);
@@ -40,9 +41,55 @@ const PhotoPortfolio = () => {
       {/* Hero Text */}
       <div className="relative z-10 text-center pt-16 pb-8">
         <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tight leading-tight">
-          everything
+          <motion.span
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="inline-block"
+          >
+            {"everything".split("").map((char, index) => (
+              <motion.span
+                key={`everything-${index}`}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      delay: index * 0.05,
+                    },
+                  },
+                }}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
+            ))}
+          </motion.span>
           <br />
-          is a frame
+          <motion.span
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="inline-block"
+          >
+            {"is a frame".split("").map((char, index) => (
+              <motion.span
+                key={`frame-${index}`}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      delay: (index + "everything".length) * 0.05,
+                    },
+                  },
+                }}
+                className="inline-block"
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
+          </motion.span>
         </h1>
       </div>
 
@@ -51,18 +98,36 @@ const PhotoPortfolio = () => {
         {/* Photo Gallery Section */}
         <div className="relative h-[200px] md:h-[800px]   ">
           {(isMobile ? photos.slice(0, 4) : photos).map((photo) => (
-            <div
+            <motion.div
               key={photo.id}
-              className={`absolute ${photo.size} cursor-pointer transition-all duration-500 ease-out`}
+              className={`absolute ${photo.size} cursor-pointer`}
               style={{
                 top: photo.top,
                 left: photo.left,
                 right: photo.right,
-                transform: `rotate(${
-                  hoveredPhoto === photo.id ? 0 : photo.rotation
-                }deg) ${hoveredPhoto === photo.id ? "scale(1.1)" : "scale(1)"}`,
                 zIndex: hoveredPhoto === photo.id ? 50 : 10,
               }}
+              initial={{ scale: 0, rotate: photo.rotation }}
+              whileInView={{
+                scale: 1,
+                rotate: photo.rotation,
+                transition: {
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  delay: photo.id * 0.1,
+                },
+              }}
+              whileHover={{
+                scale: 1.1,
+                rotate: 0,
+                transition: {
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 20,
+                },
+              }}
+              viewport={{ once: true }}
               onMouseEnter={() => setHoveredPhoto(photo.id)}
               onMouseLeave={() => setHoveredPhoto(null)}
             >
@@ -82,7 +147,7 @@ const PhotoPortfolio = () => {
                   className="rounded-lg border-8 border-white"
                 />
               </div>
-            </div>
+            </motion.div>
           ))}
 
           {/* Center CTA */}
