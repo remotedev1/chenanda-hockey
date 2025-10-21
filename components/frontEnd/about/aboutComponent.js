@@ -102,7 +102,7 @@ const AboutComponent = () => {
       stickRotation: scrollY * 0.3,
       ballX: Math.sin(scrollY * 0.01) * 20,
       ballY: Math.cos(scrollY * 0.01) * 10,
-      circleOpacity: Math.max(0.3, 0.3 - scrollY * 0.002),
+      circleOpacity: Math.max(0.3, 1 - scrollY * 0.002),
       logoStickRotation: 15 + Math.sin(scrollY * 0.005) * 10,
       logoBallY: Math.sin(scrollY * 0.008) * 3,
       logoBallScale: 1 + Math.sin(scrollY * 0.01) * 0.2,
@@ -271,6 +271,14 @@ const AboutComponent = () => {
         <section className="h-screen flex items-center px-4 md:px-8 lg:px-16 overflow-hidden">
           <div className="text-white max-w-6xl mx-auto h-full flex flex-col py-6 md:py-8">
             <h1 className="text-lg sm:text-xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 md:mb-4 lg:mb-6 text-red-400 uppercase flex-shrink-0">
+              Chenanda Okka: A Legacy of Loyalty and Tradition
+            </h1>
+          </div>
+        </section>
+
+        <section className="h-screen flex items-center justify-end pr-16">
+          <div className="text-white max-w-6xl mx-auto h-full flex flex-col py-6 md:py-8">
+            <h1 className="text-lg sm:text-xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 md:mb-4 lg:mb-6 text-red-400 uppercase flex-shrink-0">
               Papuli & the Ancestral Bond: Legacy Forged in Loyalty
             </h1>
 
@@ -296,7 +304,7 @@ const AboutComponent = () => {
                   devotion. One day, while leading twenty-five bulls bearing
                   rice on a pilgrimage to the
                   <span className="font-semibold"> Payyavoor Shiva Temple</span>
-                  , Uthaiah's favourite, Papuli distinguished by dark, soulful
+                  , Uthaiah&apos;s favourite, Papuli distinguished by dark, soulful
                   circles around his eyes vanished without a trace in the dense
                   woods near
                   <span className="font-semibold"> Bannai Kadavu</span>.
@@ -331,12 +339,6 @@ const AboutComponent = () => {
                 </p>
               </div>
             </div>
-          </div>
-        </section>
-
-        <section className="h-screen flex items-center justify-end pr-16">
-          <div className="text-white max-w-md text-right">
-            <h2 className="text-4xl font-bold mb-6 text-red-400">In Motion</h2>
           </div>
         </section>
 
@@ -398,7 +400,8 @@ const AboutComponent = () => {
                       transition={{ duration: 0.4 }}
                       className="w-full h-full"
                     >
-                      <img
+                      <Image
+                        fill
                         src={member.image}
                         alt={member.name}
                         className="w-full h-full object-cover"
