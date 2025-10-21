@@ -5,6 +5,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "ik.imagekit.io", port: "" },
       { protocol: "https", hostname: "unsplash.com", port: "" },
+      { protocol: "https", hostname: "images.unsplash.com", port: "" },
     ],
   },
    async headers() {
