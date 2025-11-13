@@ -46,12 +46,10 @@ export default function Header() {
         {/* 🔹 Main Header */}
         <div
           className={clsx(
-            "flex justify-between items-center w-full px-6 py-4 md:px-10 lg:px-20 xl:px-38 transition-all duration-700",
-            pathname === "/"
-              ? isFixed
-                ? "bg-gradient-to-b from-white/95 to-white shadow-md " // red when fixed
-                : "bg-black/40 shadow-lg  border-white" // normal state
-              : "bg-white shadow-md " // default for other pages
+            "flex justify-between items-center w-full px-6 py-4 md:px-10 lg:px-20 xl:px-36 transition-all duration-700",
+            pathname !== "/" || isFixed
+              ? "bg-primary shadow-lg shadow-black/30" // when not home OR fixed
+              : "bg-black/40 shadow-lg" // home and not fixed
           )}
         >
           {/* Logo */}

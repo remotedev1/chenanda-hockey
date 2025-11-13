@@ -17,15 +17,19 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        mundial: ["var(--font-mundial)"],
+      },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-		primary:"hsl(var(--primary))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        muted: "hsl(var(--muted))",
-        "muted-foreground": "hsl(var(--muted-foreground))",
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        muted: "var(--muted)",
+        "muted-foreground": "var(--muted-foreground)",
       },
       borderRadius: {
         lg: "var(--radius)",

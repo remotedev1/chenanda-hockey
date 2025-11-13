@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: var(--font-mundial);
+}
+
 html,
 body,
 :root {
@@ -11,76 +15,21 @@ body,
 
 @layer base {
   :root {
-    --background: #ffffff;
+    --background: #f2ece2;
     --foreground: #0f172a;
 
-    --muted: #f1f5f9;
-    --muted-foreground: #64748b;
-
-    --popover: #ffffff;
-    --popover-foreground: #0f172a;
-
-    --card: #ffffff;
-    --card-foreground: #0f172a;
-
-    --border: #e2e8f0;
+    --border: #0e0d33;
     --input: #e2e8f0;
 
-    --primary: #ffff5c;
-    --primary-foreground: #f8fafc;
+    --primary: #f2ece2;
+    --primary-foreground: #f2ece2;
 
-    --secondary: #f1f5f9;
-    --secondary-foreground: #1e293b;
-
-    --accent: #f1f5f9;
-    --accent-foreground: #1e293b;
-
-    --destructive: #ef4444;
-    --destructive-foreground: #f8fafc;
+    --secondary: #c78b0f;
+    --secondary-foreground: #c78b0f;
 
     --ring: #94a3b8;
 
     --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: #0f172a;
-    --foreground: #f8fafc;
-
-    --muted: #1e293b;
-    --muted-foreground: #94a3b8;
-
-    --popover: #0f172a;
-    --popover-foreground: #f8fafc;
-
-    --card: #0f172a;
-    --card-foreground: #f8fafc;
-
-    --border: #1e293b;
-    --input: #1e293b;
-
-    --primary: #f8fafc;
-    --primary-foreground: #1e293b;
-
-    --secondary: #1e293b;
-    --secondary-foreground: #f8fafc;
-
-    --accent: #1e293b;
-    --accent-foreground: #f8fafc;
-
-    --destructive: #7f1d1d;
-    --destructive-foreground: #fafafa;
-
-    --ring: #cbd5e1;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }
 
@@ -157,18 +106,14 @@ body,
 
 /* //spinner-end */
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 /* //nprogress customizations   */
 #nprogress .bar {
   background: #16a34a !important;
   height: 3px !important;
   z-index: 9999 !important;
 }
+
+/* primary : #aa770f
+secondary: #c78b0f
+background : #f2ece2
+border: #0e0d33 */

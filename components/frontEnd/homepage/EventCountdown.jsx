@@ -65,7 +65,7 @@ const EventCountdown = () => {
   return (
     <section className="bg-white md:py-5">
       <AnimatePresence>
-        <div className="bg-yellow-400 md:rounded-xl shadow-lg flex flex-col md:flex-row max-w-4xl  w-full mx-auto  md:my-20">
+        <div className="bg-border md:rounded-xl shadow-lg flex flex-col md:flex-row max-w-4xl  w-full mx-auto  md:my-20">
           {/* Image Section */}
           <div className="w-full md:w-1/2  hidden lg:flex ">
             <motion.img
@@ -90,10 +90,10 @@ const EventCountdown = () => {
             }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <h1 className="text-3xl font-bold text-slate-800 mb-2">
+            <h1 className="text-3xl font-bold text-secondary mb-2">
               Kodava Hockey Cup 2026
             </h1>
-            <p className="text-gray-600 mb-6 leading-relaxed">
+            <p className="text-white mb-6 leading-relaxed">
               Organized by Chenanda
               <br />
               April 5 - May 2, 2026
@@ -102,16 +102,16 @@ const EventCountdown = () => {
             </p>
             <div className="flex gap-6 mb-8">
               <div>
-                <span className="block text-2xl font-bold text-slate-800">
+                <span className="block text-2xl font-bold text-secondary">
                   450+
                 </span>
-                <span className="text-slate-600">Teams</span>
+                <span className="text-slate-300">Teams</span>
               </div>
               <div>
-                <span className="block text-2xl font-bold text-slate-800">
+                <span className="block text-2xl font-bold text-secondary">
                   200+
                 </span>
-                <span className="text-slate-600">Matches</span>
+                <span className="text-slate-300">Matches</span>
               </div>
             </div>
 
@@ -150,13 +150,13 @@ const EventCountdown = () => {
                       Seconds
                     </div>
                   </div>
-                  <div className="text-center text-lg font-semibold text-slate-800">
+                  <div className="text-center text-lg font-semibold text-slate-300">
                     To go!
                   </div>
                 </div>
               ) : (
-                <div className="text-center text-lg font-semibold text-slate-800">
-                  The Event Has Started!
+                 <div className="text-center text-lg font-semibold text-white">
+                  Lets Play Hockey!
                 </div>
               )}
             </div>

@@ -7,7 +7,7 @@ export default function Page() {
     <main className="relative min-h-screen flex flex-col bg-black text-white overflow-hidden">
       <Hero />
       <EventCountdown />
-      <PhotoPortfolio />
+      {/* <PhotoPortfolio /> */}
     </main>
   );
 }

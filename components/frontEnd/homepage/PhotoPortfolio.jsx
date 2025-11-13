@@ -47,7 +47,7 @@ const PhotoPortfolio = () => {
             viewport={{ once: true }}
             className="inline-block"
           >
-            {"everything".split("").map((char, index) => (
+            {"Everything".split("").map((char, index) => (
               <motion.span
                 key={`everything-${index}`}
                 variants={{
@@ -115,7 +115,7 @@ const PhotoPortfolio = () => {
                   type: "spring",
                   stiffness: 100,
                   damping: 15,
-                  delay: photo.id * 0.1,
+                  delay: photo.id * 0.06,
                 },
               }}
               whileHover={{

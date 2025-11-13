@@ -3,46 +3,46 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-black opacity-95 text-gray-300 py-10 z-50">
+    <footer className="bg-border opacity-95  py-10 z-50">
       <div className=" mx-auto px-4 grid md:grid-cols-2 gap-10 mt-10 container">
         {/* Left Section - Logo + About */}
         <div>
-          <h2 className="text-2xl font-bold text-yellow-400">
+          <h2 className="text-2xl font-bold text-secondary">
             CHENANDA<span className="text-white">.IN</span>
           </h2>
         </div>
 
         <div className="flex flex-row lg:justify-end space-x-5">
           <div>
-            <h3 className="text-lg font-semibold text-yellow-400 mb-4">Home</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
+            <h3 className="text-lg font-semibold text-secondary  mb-4">Home</h3>
+            <ul className="space-y-2 text-sm ">
+              <li className="text-white hover:text-secondary" >
                 <Link href="/about">About Us</Link>
               </li>
 
-              <li>
+              <li className="text-white hover:text-secondary" >
                 <Link href="/contact">Contact Us</Link>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-yellow-400 mb-4">
+            <h3 className="text-lg font-semibold text-secondary mb-4">
               Get In Touch
             </h3>
             {/* <div className="flex items-center gap-2 mb-2">
-                <Phone size={16} className="text-yellow-400" />
+                <Phone size={16} className="text-secondary" />
                 <a
                   href="tel:+910546546541654654"
-                  className="hover:text-yellow-400"
+                  className="hover:text-secondary"
                 >
                   +91-0546546541654654
                 </a>
               </div> */}
             <div className="flex items-center gap-2">
-              <Mail size={16} className="text-yellow-400" />
+              <Mail size={16} className="text-secondary" />
               <a
                 href="mailto:chenandahockeyfestival.official@gmail.com"
-                className="font-semibold hover:underline hover:text-yellow-600 transition-colors text-xs"
+                className="font-semibold hover:underline text-white hover:text-secondary transition-colors text-xs"
               >
                 chenandahockeyfestival.official@gmail.com
               </a>
