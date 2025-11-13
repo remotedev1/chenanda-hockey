@@ -10,6 +10,7 @@ import {
   Facebook,
   Twitter,
   X,
+  CircleX,
 } from "lucide-react";
 import {
   Sheet,
@@ -21,6 +22,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { Button } from "../ui/button";
 
 export default function Header() {
   const [isFixed, setIsFixed] = useState(false);
@@ -60,23 +62,29 @@ export default function Header() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex items-center space-x-2"
           >
-            {isFixed && (
+            {(pathname !== "/" || isFixed) && (
               <Link href="/" className="no-underline cursor-pointer">
                 <Image
-                  src={isFixed && "/logo-red.png"}
+                  src={
+                    isFixed || pathname !== "/"
+                      ? "/logo-red.png"
+                      : "/logo-white.png"
+                  }
                   alt="Logo"
                   width={125}
                   height={125}
+                  priority
                 />
               </Link>
             )}
           </motion.div>
+
           {/* Left side */}
 
           {/* Right side */}
           <div className="flex items-center space-x-4">
             {/* Mobile Menu */}
-            <Sheet open={open} onOpenChange={setOpen}   >
+            <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <button className="p-2 rounded">
                   <Menu
@@ -88,8 +96,11 @@ export default function Header() {
                 </button>
               </SheetTrigger>
 
-              <SheetContent side="top" className="w-full h-full">
-                <nav className="space-y-6 flex flex-col items-center justify-center h-full text-lg font-medium bg-black text-white">
+              <SheetContent side="top" className="w-full h-full bg-black p-8">
+                <SheetClose asChild className=" flex justify-self-end">
+                  <CircleX className=" text-red-600 hover:text-red-400  transition-colors duration-300 cursor-pointer" />
+                </SheetClose>
+                <nav className="space-y-6 flex flex-col items-center justify-center h-full text-lg font-medium  text-white">
                   <Link
                     href="#"
                     className="hover:text-yellow-400"

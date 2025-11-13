@@ -78,6 +78,7 @@ export default function Hero() {
             width={isMobile ? 230 : 300}
             height={isMobile ? 80 : 120}
             className="object-contain"
+            priority={true}
           />
         </motion.div>
 

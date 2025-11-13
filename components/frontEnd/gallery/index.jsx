@@ -177,7 +177,7 @@ const GalleryComponent = () => {
                 alt="Profile Picture"
                 layout="fill"
                 objectFit="contain"
-                className="rounded-full"
+                className="p-2"
               />
             </div>
           </motion.div>
@@ -411,7 +411,7 @@ const GalleryComponent = () => {
                       <Bookmark className="w-7 h-7" />
                     </motion.button>
                   </div>
-                
+
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}

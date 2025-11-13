@@ -165,3 +165,10 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+/* //nprogress customizations   */
+#nprogress .bar {
+  background: #16a34a !important;
+  height: 3px !important;
+  z-index: 9999 !important;
+}

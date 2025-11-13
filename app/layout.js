@@ -2,6 +2,7 @@ import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import "./globals.css";
 import { Providers } from "./Providers";
+import PageLoader from "@/components/common/PageLoader";
 
 export const metadata = {
   title: "Chenanda",
@@ -33,6 +34,7 @@ export default async function RootLayout({ children }) {
       <body>
         <SessionProvider session={session} refetchInterval={5 * 60}>
           <Providers>{children}</Providers>
+          <PageLoader />
         </SessionProvider>
       </body>
     </html>
