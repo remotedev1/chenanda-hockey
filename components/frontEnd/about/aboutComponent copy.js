@@ -2,8 +2,6 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import GalleryComponent from "../gallery";
-import PhotoPortfolio from "../homepage/PhotoPortfolio";
 
 const teamMembers = [
   {
@@ -360,8 +358,133 @@ const AboutComponent = () => {
           </div>
         </section>
 
-        <section className="min-h-screen flex flex-col items-center justify-center">
-          <PhotoPortfolio/>
+        <section className="h-screen flex flex-col items-center justify-center">
+          <motion.h2
+            initial={{ opacity: 0, y: -30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl md:text-5xl font-bold mb-6 text-red-400"
+          >
+            PRIDE OF CHENANDA
+          </motion.h2>
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-6 px-4"
+          >
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={index}
+                variants={cardVariants}
+                whileHover={{
+                  y: -10,
+                  scale: 1.02,
+                  transition: { duration: 0.3 },
+                }}
+                className="group perspective max-w-sm"
+              >
+                <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 hover:shadow-2xl">
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${member.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 z-10`}
+                  ></div>
+
+                  <div className="relative h-64 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.4 }}
+                      className="w-full h-full"
+                    >
+                      <Image
+                        fill
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+
+                    <div
+                      className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl ${member.color} opacity-80 rounded-bl-full`}
+                    ></div>
+                  </div>
+
+                  <div className="p-6 relative z-20">
+                    <motion.h3
+                      className="text-xl font-bold text-amber-800 mb-3 group-hover:text-amber-900 transition-colors"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {member.name}
+                    </motion.h3>
+
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {member.title}
+                    </p>
+
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "100%" }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.3 }}
+                      className={`h-1 bg-gradient-to-r ${member.color} mt-4 rounded-full`}
+                    ></motion.div>
+                  </div>
+
+                  {/* Badge */}
+                  <div className="absolute top-4 left-4 z-30">
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                      className={`w-12 h-12 bg-gradient-to-br ${member.color} rounded-full flex items-center justify-center shadow-lg`}
+                    >
+                      <span className="text-white font-bold text-lg">
+                        {index + 1}
+                      </span>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom Decorative Element */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="mt-16 text-center"
+          >
+            <p className="text-amber-700 italic text-lg font-serif mb-8">
+              Honoring legacy, celebrating excellence
+            </p>
+
+            {/* View More Button */}
+            <motion.a
+              href="/pride-of-chenanda"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 group"
+            >
+              <span>View More</span>
+              <motion.svg
+                className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </motion.svg>
+            </motion.a>
+          </motion.div>
         </section>
       </div>
 

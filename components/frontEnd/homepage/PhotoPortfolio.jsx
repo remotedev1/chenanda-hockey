@@ -37,7 +37,7 @@ const PhotoPortfolio = () => {
   };
 
   return (
-    <div className="md:min-h-screen bg-gradient-to-br from-sky-400 via-blue-500 to-blue-600 overflow-hidden">
+    <div className="   w-full  overflow-hidden">
       {/* Hero Text */}
       <div className="relative z-10 text-center pt-16 pb-8">
         <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tight leading-tight">
